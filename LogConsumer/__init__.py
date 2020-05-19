@@ -1,3 +1,2 @@
-import sys
-sys.path.append('D:\\Workspaces\\Backend\\Vintter\\Solution')
-sys.path.append('D:/Workspaces/Backend/Vintter/Solution')
+import LogConsumer.config
+import LogConsumer.file.filewriter

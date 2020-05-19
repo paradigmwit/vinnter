@@ -4,6 +4,7 @@ from inspect import getsourcefile
 from os.path import abspath
 
 # adding current directory to path, was having issues importing modules
+# the path should be added to the python setup or as a lib
 current_directory = abspath(getsourcefile(lambda: 0))
 current_directory = '\\'.join(current_directory.split('\\')[:-2])+'\\'
 sys.path.append(current_directory)
@@ -26,10 +27,9 @@ def main(sensor_name):
 
     process = subprocess.Popen([config.APPLICATION_PATH+config.APPLICATION_NAME, '-n ' + sensor_name],
                                stdout=subprocess.PIPE,
-                               # universal_newlines=True,
-                               # bufsize=1,
                                )
     try:
+        # Running single threaded as there could be packet loss in the way data is received from emulator
         while True:
             stdio += process.stdout.readline()
             print(stdio)
@@ -46,7 +46,6 @@ def main(sensor_name):
 
             print(f'Log Packets added to queue. Current size - {len(packets_queue)}')
 
-            # TODO- de-queue and send log packets to rabbitMQ
             batch_size = config.QUEUE_BUFFER_SIZE if len(packets_queue) >= config.QUEUE_BUFFER_SIZE else len(packets_queue)
             batch, packets_queue = packets_queue[:batch_size], packets_queue[batch_size:]
 
@@ -72,6 +71,7 @@ def main(sensor_name):
 
 
 if __name__ == '__main__':
+
     if len(sys.argv) < 2:
         print('usage: python3 log-consumer {SensorName} ')
         exit()

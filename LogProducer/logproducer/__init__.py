@@ -1,1 +1,1 @@
-from LogProducer.logproducer.logproducer import LogProducer
+__all__ = ["logproducer"]

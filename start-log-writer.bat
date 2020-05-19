@@ -1,0 +1,1 @@
+python ./LogConsumer/log-writer.py
