@@ -1,7 +1,7 @@
 ## Information and Instructions
 ___
 
-###Dependencies 
+### Dependencies 
 
 1. Python 3.8
 
@@ -30,7 +30,7 @@ ___
     
 ---
 
-###Configuration Changes Needed
+### Configuration Changes Needed
 
 1. LogProducer\config.py
     - APPLICATION_PATH : Path of the sensor application
@@ -59,7 +59,7 @@ Each component will work independent of the other.
 
 ---
 
-#####Launch LogConsumer - 1 Instance
+##### Launch LogConsumer - 1 Instance
 - from cmd prompt `start-log-writer.bat` 
 - Python 
     - cd to ./LogConsumer directory
@@ -67,7 +67,7 @@ Each component will work independent of the other.
 
 ---
 
-####LogProducer - N Instances
+#### LogProducer - N Instances
 
 The LogProducer module performs the following operations
 1. Launches the sensor emulator and reads the STDIO
@@ -77,7 +77,7 @@ The LogProducer module performs the following operations
 
 ---
 
-####LogConsumer - 1 Instance
+#### LogConsumer - 1 Instance
 
 The LogConsumer modules performs the following operations
 1. Listens to the RabbitMQ queue for log messages
