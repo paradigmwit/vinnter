@@ -40,7 +40,7 @@ ___
     - FILE_PATH : Directory where file is to be generated
     - FILE_NAME : Name of the log file 
 
-##### REMEMBER TO SET THE FILE_PATH for the binary in LogConsumer\config.py
+##### REMEMBER TO SET THE APPLICATION_PATH and FILE_PATH FOR YOUR SYSTEM
 
 ---
 
