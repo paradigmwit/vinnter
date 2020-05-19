@@ -30,7 +30,7 @@ ___
     
 ---
 
-### Configuration Changes Needed
+### Configuration Files
 
 1. LogProducer\config.py
     - APPLICATION_PATH : Path of the sensor application
@@ -51,7 +51,7 @@ Each component will work independent of the other.
 
 ![Solution_Design](./Vinnter_solution.jpg)
 
-#####Launch LogProducer - N Instances
+##### Launch LogProducer - N Instances
 - from cmd prompt `start-log-reader.bat` 
 - Python 
     - cd to ./LogProducer directory
