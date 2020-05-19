@@ -1,4 +1,4 @@
-Information and Instructions
+## Information and Instructions
 ___
 
 ###Dependencies 
@@ -21,7 +21,8 @@ ___
     - `_'python -m venv ./venv'_`
     - `_'.\venv\Scripts\activate.bat'_`
 
-    NOTE - If you are using the virtualenv, then all solution executions should be performed in the virtual environment.
+    NOTE - If you are using the virtualenv, then all solution executions should be performed in the virtual environment. **Might be better to let PyCharm take care of VENV stuff.**
+   
     
 5. Pika package for RabbitMQ
     - `_'pip install pika'_`
