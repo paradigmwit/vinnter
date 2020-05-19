@@ -9,7 +9,7 @@ current_directory = abspath(getsourcefile(lambda: 0))
 current_directory = '\\'.join(current_directory.split('\\')[:-2])+'\\'
 sys.path.append(current_directory)
 sys.path.append(current_directory)
-#print(sys.path)
+# print(sys.path)
 
 
 def main(sensor_name):
@@ -17,22 +17,26 @@ def main(sensor_name):
     from LogProducer.logparser import LogParser
     from LogProducer.logproducer.logproducer import LogProducer
     from LogProducer import config
+    log_parser = LogParser()
+    log_producer = LogProducer()
 
     print('Started. Waiting on sensor generator...')
     stdio = b''
     packets_queue = []
 
-    log_parser = LogParser()
-    log_producer = LogProducer()
+    command = [config.APPLICATION_PATH+config.APPLICATION_NAME]
 
-    process = subprocess.Popen([config.APPLICATION_PATH+config.APPLICATION_NAME, '-n ' + sensor_name],
+    if sensor_name is not None:
+        command.append('-n ' + sensor_name)
+
+    process = subprocess.Popen(command,
                                stdout=subprocess.PIPE,
                                )
     try:
         # Running single threaded as there could be packet loss in the way data is received from emulator
         while True:
             stdio += process.stdout.readline()
-            print(stdio)
+            # print(stdio)
             print('Output received.')
 
             parsed_packets, partial_packet = log_parser.parse(stdio)
@@ -72,8 +76,11 @@ def main(sensor_name):
 
 if __name__ == '__main__':
 
-    if len(sys.argv) < 2:
-        print('usage: python3 log-consumer {SensorName} ')
+    if len(sys.argv) > 2:
+        print('usage: python3 log-consumer {SensorName}. '
+              'There should be one Sensor Name, or None')
         exit()
-    else:
+    elif len(sys.argv) == 2 and sys.argv[1].isalnum():
         main(sys.argv[1])
+    else:
+        main(None)

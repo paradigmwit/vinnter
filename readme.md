@@ -8,7 +8,7 @@ ___
 2. PIP
 
 3. RabbitMQ
-    - _`'docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management'`_
+    - `docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management`
         - OR
     - https://www.rabbitmq.com/download.html 
         - install Erlang
@@ -18,14 +18,15 @@ ___
     
 4. Python VENV (OPTIONAL, but preferred to keep python installation lib clean). 
    Launch CMD in checked out directory and execute:
-    - `_'python -m venv ./venv'_`
-    - `_'.\venv\Scripts\activate.bat'_`
+    - `python -m venv ./venv`
+    - `.\venv\Scripts\activate.bat`
 
     NOTE - If you are using the virtualenv, then all solution executions should be performed in the virtual environment. **Might be better to let PyCharm take care of VENV stuff.**
    
     
 5. Pika package for RabbitMQ
-    - `_'pip install pika'_`
+    - `pip install pika`
+    - `pip install pytz`
     
 ---
 
@@ -51,18 +52,18 @@ Each component will work independent of the other.
 ![Solution_Design](./Vinnter_solution.jpg)
 
 #####Launch LogProducer - N Instances
-- `_'start-log-reader.bat'_` in a cmd prompt
+- from cmd prompt `start-log-reader.bat` 
 - Python 
     - cd to ./LogProducer directory
-    - `_'python log-reader.py {SENSOR_NAME}'_`
+    - `python log-reader.py {SENSOR_NAME}`
 
 ---
 
 #####Launch LogConsumer - 1 Instance
-- `_'start-log-writer.bat'_` in a cmd prompt
+- from cmd prompt `start-log-writer.bat` 
 - Python 
     - cd to ./LogConsumer directory
-    - `_'python log-writer.py'_`
+    - `python log-writer.py`
 
 ---
 

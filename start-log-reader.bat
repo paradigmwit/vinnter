@@ -1,1 +1,1 @@
-python ./LogProducer/log-reader.py Sensor1
+python ./LogProducer/log-reader.py %1

@@ -9,7 +9,7 @@ class FileWriter:
     def __init__(self):
         self._path = config.FILE_PATH
         self._name = config.FILE_NAME
-        print('File - ', self._path + self._name)
+        # print('File - ', self._path + self._name)
 
     def write(self, log):
         try:

@@ -1,6 +1,7 @@
 from pprint import pprint as pp
 from datetime import date, datetime, timezone
 from decimal import Decimal
+import pytz
 
 # packet position constants
 SIZE_HUMIDITY = 2
@@ -9,6 +10,8 @@ SIZE_HUMIDITY_AND_TEMP = 5
 INDEX_NAME_START = 13
 INDEX_TIMESTAMP = 12
 INDEX_PACKET_LENGTH = 4
+
+DEFAULT_TIMEZONE = 'Europe/Stockholm'
 
 
 class LogParser:
@@ -31,7 +34,7 @@ class LogParser:
 
             current_packet_length = int.from_bytes(remaining_data[:INDEX_PACKET_LENGTH], 'big', signed=False)
 
-            print('current_packet_length - ', current_packet_length, ' remaining_data len - ', len(remaining_data))
+            # print('current_packet_length - ', current_packet_length, ' remaining_data len - ', len(remaining_data))
 
             if current_packet_length > len(remaining_data):
                 partial_packet = remaining_data
@@ -39,9 +42,8 @@ class LogParser:
                 break
 
             packet = remaining_data[:current_packet_length]
-            print('Packet - ', packet)
+            # print('Packet - ', packet)
             length_of_packets_parsed += current_packet_length
-            # print(current_packet_length, ' - ', packet, ' - packet data_length - ', current_packet_length)
 
             logs.append(self.parse_packet(packet))
 
@@ -97,9 +99,10 @@ def _parse_timestamp(packet):
 
 
 def _convert_timestamp(b_timestamp):
+    tzone = pytz.timezone(DEFAULT_TIMEZONE)
     s_timestamp = int.from_bytes(b_timestamp, 'big', signed=False)
-    # print('timestamp - ', s_timestamp)
-    timestamp = datetime.fromtimestamp(s_timestamp / 1000, timezone.utc).strftime('%y-%m-%dT%T%z')
+    timestamp = datetime.fromtimestamp(s_timestamp / 1000, tzone).replace(microsecond=0).isoformat()
+    # print(timestamp)
     return timestamp
 
 
