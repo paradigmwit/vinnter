@@ -1,24 +1,30 @@
 import subprocess
 import sys
+from inspect import getsourcefile
+from os.path import abspath
 
-sys.path.append('D:\\Workspaces\\Backend\\Vintter\\Solution')
-sys.path.append('D:/Workspaces/Backend/Vintter/Solution')
-# print(sys.path)
+# adding current directory to path, was having issues importing modules
+current_directory = abspath(getsourcefile(lambda: 0))
+current_directory = '\\'.join(current_directory.split('\\')[:-2])+'\\'
+sys.path.append(current_directory)
+sys.path.append(current_directory)
+#print(sys.path)
 
 
 def main(sensor_name):
+
+    from LogProducer.logparser import LogParser
+    from LogProducer.logproducer.logproducer import LogProducer
+    from LogProducer import config
+
     print('Started. Waiting on sensor generator...')
     stdio = b''
     packets_queue = []
 
-    from LogProducer.logparser import LogParser
-    from LogProducer.logproducer import LogProducer
-    from LogProducer.config import QUEUE_BUFFER_SIZE, APPLICATION_NAME
-
     log_parser = LogParser()
     log_producer = LogProducer()
 
-    process = subprocess.Popen([APPLICATION_NAME, '-n ' + sensor_name],
+    process = subprocess.Popen([config.APPLICATION_PATH+config.APPLICATION_NAME, '-n ' + sensor_name],
                                stdout=subprocess.PIPE,
                                # universal_newlines=True,
                                # bufsize=1,
@@ -41,7 +47,7 @@ def main(sensor_name):
             print(f'Log Packets added to queue. Current size - {len(packets_queue)}')
 
             # TODO- de-queue and send log packets to rabbitMQ
-            batch_size = QUEUE_BUFFER_SIZE if len(packets_queue) >= QUEUE_BUFFER_SIZE else len(packets_queue)
+            batch_size = config.QUEUE_BUFFER_SIZE if len(packets_queue) >= config.QUEUE_BUFFER_SIZE else len(packets_queue)
             batch, packets_queue = packets_queue[:batch_size], packets_queue[batch_size:]
 
             log_producer.dispatch_logs(batch)
