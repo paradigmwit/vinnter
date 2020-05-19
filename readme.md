@@ -24,9 +24,9 @@ ___
     NOTE - If you are using the virtualenv, then all solution executions should be performed in the virtual environment. **Might be better to let PyCharm take care of VENV stuff.**
    
     
-5. Pika package for RabbitMQ
-    - `pip install pika`
-    - `pip install pytz`
+5. Pika and pytz python package dependencies 
+    - `pip install pika` for rabbitmq
+    - `pip install pytz` for timezone
     
 ---
 
