@@ -1,4 +1,6 @@
 ## Information and Instructions
+
+These have been tested on Windows 10
 ___
 
 ### Dependencies 
@@ -55,6 +57,7 @@ Each component will work independent of the other.
 
 ##### Launch LogProducer - N Instances
 - from cmd prompt `start-log-reader.bat` 
+- or
 - Python 
     - cd to ./LogProducer directory
     - `python log-reader.py {SENSOR_NAME}`
@@ -63,6 +66,7 @@ Each component will work independent of the other.
 
 ##### Launch LogConsumer - 1 Instance
 - from cmd prompt `start-log-writer.bat` 
+- or
 - Python 
     - cd to ./LogConsumer directory
     - `python log-writer.py`
